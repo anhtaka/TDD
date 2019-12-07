@@ -9,7 +9,13 @@ namespace TDD.UI
 {
     public class Form1ViewModel : ViewModelBase
     {
+        private IDB _db;
         private string _aTextBoxText = string.Empty;
+
+        public Form1ViewModel(IDB db)
+        {
+            _db = db;
+        }
         public string ATextBoxText
         {
             get { return _aTextBoxText; }
@@ -33,32 +39,17 @@ namespace TDD.UI
             set
             {
                 SetProperty(ref _resultLabelText, value);
-                //if (_resultLabelText == value)
-                //{
-                //    return;
-                //}
-                //_resultLabelText = value;
-                //OnPropertyChanged("ResultLabelText");
             }
         }
-        //public event PropertyChangedEventHandler PropertyChanged;
-
-        //public void OnPropertyChanged(string propertyName)
-        //{
-        //    if(PropertyChanged != null)
-        //    {
-        //        this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-        //    }
-        //}
 
         public void CaluclationAction()
         {
             int a = Convert.ToInt32(ATextBoxText);
             int b = Convert.ToInt32(BTextBoxText);
 
-            ResultLabelText = Caluculation.Sum(a, b).ToString();
-
-            //OnPropertyChanged(string.Empty);
+            //var db = new DB();
+            int dbValue = _db.GetDBValue();
+            ResultLabelText = (Caluculation.Sum(a, b) + dbValue).ToString();
         }
     }
 }

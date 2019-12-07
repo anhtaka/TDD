@@ -10,7 +10,7 @@ namespace TDDTest.Tests
         [TestMethod]
         public void TestMethod1()
         {
-            var viewModel = new Form1ViewModel();
+            var viewModel = new Form1ViewModel(new DBMock());
             Assert.AreEqual("", viewModel.ATextBoxText);
             Assert.AreEqual("", viewModel.BTextBoxText);
             Assert.AreEqual("", viewModel.ResultLabelText);
@@ -18,7 +18,14 @@ namespace TDDTest.Tests
             viewModel.ATextBoxText = "2";
             viewModel.BTextBoxText = "5";
             viewModel.CaluclationAction();
-            Assert.AreEqual("7", viewModel.ResultLabelText);
+            Assert.AreEqual("107", viewModel.ResultLabelText);
+        }
+    }
+    internal class DBMock : IDB
+    {
+        public int GetDBValue() {
+            return 100;
+
         }
     }
 }
